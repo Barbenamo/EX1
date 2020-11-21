@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
+import EX1.Wgraph_DS.Node_inf;
 /**
  * @author Bar Ben-Amo date:05/11/2020
  */
@@ -61,7 +61,7 @@ public class WGraph_Algo implements weighted_graph_algorithms {
 			c.addNode(iterator.getKey());
 		}
 		for (int key : ((Wgraph_DS) g).getE().keySet()) {
-			for (edge_info nei : ((Wgraph_DS) g).getE().values()) {
+			for (EX1.Wgraph_DS.Edge_node nei : ((Wgraph_DS) g).getE().values()) {
 				for (node_info p2 : nei.getNei()) {
 					if (((Wgraph_DS) g).hasEdge(p2.getKey(), key)) {
 						c.connect(p2.getKey(), key, g.getEdge(p2.getKey(), key));

@@ -19,10 +19,153 @@ import EX0.node_data;
  */
 public class Wgraph_DS implements weighted_graph {
 	private HashMap<Integer, node_info> g;// data structure to represent a graph
-	private HashMap<Integer, edge_info> edges;
+	private HashMap<Integer, Edge_node> edges;
 
 	private int mc;// changes counter
 	private int numofedges;// number of edges in a graph
+	
+	public class Node_inf implements node_info {
+		private int key;
+		private double tag;
+		private String info;
+		private node_info parent;
+		
+
+		public Node_inf() {//Default constructor
+			super();
+			this.key=(int)(Math.random()*Integer.MAX_VALUE);
+			this.tag=-1;
+			this.info="";
+			this.parent=null;
+		}
+		
+
+		public Node_inf(int key) {//key- based constructor 
+			super();
+			this.key = key;
+			this.tag=-1;
+			this.info="";
+			this.parent=null;
+		}
+		public Node_inf(node_info n)
+		{
+			this.key=n.getKey();
+			this.info=n.getInfo();
+			this.tag=n.getTag();
+		}
+
+
+		@Override
+		public int getKey() {//key getter (data)
+			return this.key;
+		}
+
+		@Override
+		public String getInfo() {//info getter (meta-data)
+			
+			return this.info;
+		}
+
+		@Override
+		public void setInfo(String s) {//info setter (meta-data)
+			this.info=s;
+			
+		}
+
+		@Override
+		public double getTag() {
+			return this.tag;
+			
+		}
+
+
+		@Override
+		public void setTag(double t) {
+			this.tag=t;
+			
+		}
+
+
+		public node_info getParent() {
+			return parent;
+		}
+
+
+		public void setParent(node_info parent) {
+			this.parent = parent;
+		}
+	}
+
+	public class Edge_node  {
+		private node_info src;
+		private node_info dst;
+		private double weight;
+		private HashMap<node_info,Double> neighbors;
+		
+		
+		public Edge_node() {
+			
+			super();
+			this.neighbors=new HashMap<>();
+			
+		}
+		
+		
+		public int getSrc() {
+			
+			return this.src.getKey();
+		}
+
+		
+		public int getDest() {
+			
+			return this.dst.getKey();
+		}
+		/**
+		 * @author Bar Ben Amo
+		 *get weight function
+		 *assuming the weight is non-negative!
+		 */
+
+		public double getWeight(node_info n) {
+			if(hasNei(n)) {
+				return neighbors.get(n);
+			}
+			return -1;
+		}
+
+		
+		public boolean hasNei(node_info n) {
+			if(neighbors.containsKey(n)) {
+				return true;
+			}
+			return false;
+		}
+
+		
+		public Collection<node_info> getNei() {
+			
+			return neighbors.keySet();
+		}
+
+		
+		public void removeEdge(node_info n) {
+			if(hasNei(n)) {
+				neighbors.remove(n);
+			}
+			else {
+				return;
+			}
+			
+		}
+		
+		public void addNi(node_info n, double weight) {
+			neighbors.put(n, weight);
+			
+		}
+
+	}
+
 
 	/**
 	 * @author Bar Ben-Amo default constructor
@@ -154,7 +297,7 @@ public class Wgraph_DS implements weighted_graph {
 	 * @author Bar Ben-Amo return a collection of all edges on a graph.
 	 *
 	 */
-	public HashMap<Integer, edge_info> getE() {
+	public HashMap<Integer, Edge_node> getE() {
 		return this.edges;
 	}
 
